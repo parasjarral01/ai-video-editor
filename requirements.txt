@@ -1,11 +1,10 @@
-opencv-python
-numpy
+streamlit
+opencv-python-headless
 moviepy
 Pillow
+numpy
 transformers
-speechrecognition
 gtts
-beautifulsoup4
+speechrecognition
 requests
-langchain
-openai
+beautifulsoup4
