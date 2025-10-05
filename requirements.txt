@@ -1,0 +1,11 @@
+opencv-python
+numpy
+moviepy
+Pillow
+transformers
+speechrecognition
+gtts
+beautifulsoup4
+requests
+langchain
+openai
