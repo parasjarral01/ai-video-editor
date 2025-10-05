@@ -3,6 +3,7 @@ from editor.editing_panel import EditingPanel
 from editor.thumbnail_generator import ThumbnailGenerator
 from editor.translator import Translator
 from editor.export_system import ExportSystem
+from PIL import Image
 import tempfile
 import os
 
@@ -33,7 +34,11 @@ if uploaded_file:
     if st.button("Generate Thumbnails"):
         thumbs = thumb_gen.generate_thumbnails(video_path)
         for img in thumbs:
-            st.image(img, caption=img)
+            if os.path.exists(img):
+                image = Image.open(img)
+                st.image(image, caption=img)
+            else:
+                st.warning(f"Thumbnail {img} not found.")
 
     if st.button("Translate & Dub (Spanish)"):
         translator.translate_and_dub(video_path, ["es"])
@@ -42,5 +47,6 @@ if uploaded_file:
     if st.button("Export Final Video"):
         out_path = exporter.export_video(video_path)
         st.success(f"Exported to {out_path}")
-        with open(out_path, "rb") as f:
-            st.download_button("Download Exported Video", f, file_name="final_video.mp4")
+        if os.path.exists(out_path):
+            with open(out_path, "rb") as f:
+                st.download_button("Download Exported Video", f, file_name="final_video.mp4")
